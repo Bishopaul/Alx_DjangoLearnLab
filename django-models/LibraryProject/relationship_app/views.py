@@ -14,7 +14,7 @@ def list_books(request):
 class LibraryDetailView(DetailView):
     model = Library
     template_name = "relationship_app/library_detail.html"
-    context_object_name = "libray"
+    context_object_name = "library"
 
 def is_admin(user):
     return hasattr(user, "userprofile") and user.userprofile.role == "Admin"
