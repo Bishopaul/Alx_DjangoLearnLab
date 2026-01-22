@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from .models import Book
+<h1>Books</h1>
 
-def list_books(request):
-    books = Book.objects.all()
-    return render(request, "relationship_app/list_books.html", {"books": books})
+<ul>
+  {% for book in books %}
+    <li>{{ book.title }} — {{ book.author.name }}</li>
+  {% empty %}
+    <li>No books available.</li>
+  {% endfor %}
+</ul>
