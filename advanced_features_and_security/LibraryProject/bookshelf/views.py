@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
-from .models import Article
+from .models import Article, Book
 
 # View list of articles (requires can_view)
 @permission_required('advanced_features_and_security.can_view', raise_exception=True)
@@ -38,3 +38,8 @@ def article_delete(request, pk):
     article = get_object_or_404(Article, pk=pk)
     article.delete()
     return redirect('article_list')
+
+def book_list(request):
+    books = Book.objects.all()   # <-- required variable name
+    return render(request, 'books/book_list.html', {'books': books})
+
