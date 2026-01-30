@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Article, Book
+from .forms import BookSearchForm
 
 # View list of articles (requires can_view)
 @permission_required('advanced_features_and_security.can_view', raise_exception=True)
@@ -43,3 +44,18 @@ def book_list(request):
     books = Book.objects.all()   # <-- required variable name
     return render(request, 'books/book_list.html', {'books': books})
 
+def book_list(request):
+    form = BookSearchForm(request.GET or None)
+    books = Book.objects.all()
+
+    if form.is_valid():
+        query = form.cleaned_data["query"]
+        if query:
+            # SECURITY: using ORM filter instead of raw SQL prevents SQL injection
+            books = books.filter(title__icontains=query)
+
+    context = {
+        "books": books,
+        "form": form,
+    }
+    return render(request, "bookshelf/book_list.html", context)
