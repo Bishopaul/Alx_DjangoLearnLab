@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshelf',
-    'relationship_app',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +119,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# SECURITY: never use DEBUG=True in production
+DEBUG = False  # For local dev you can temporarily set True, but ALX wants this set to False for production.
+
+# SECURITY: only allow your domains in production
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]  # adjust for real deployment
+
+# Browser-side protections
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+
+# Cookies must be sent only over HTTPS (for real production)
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# If you use django-csp:
+INSTALLED_APPS += [
+    "csp",
+]
+
+MIDDLEWARE += [
+    "csp.middleware.CSPMiddleware",
+    "LibraryProject.middleware.CSPMiddleware",
+]
+
+# Content Security Policy (tighten as needed)
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'",)
