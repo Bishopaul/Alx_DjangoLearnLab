@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Article, Book
 from .forms import BookSearchForm
+from .forms import ExampleForm
 
 # View list of articles (requires can_view)
 @permission_required('advanced_features_and_security.can_view', raise_exception=True)
