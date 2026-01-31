@@ -150,3 +150,25 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'",)
+
+# SECURITY: Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# SECURITY: HTTP Strict Transport Security (HSTS)
+# Instructs browsers to only use HTTPS for this site for 1 year
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow site to be included in browser preload lists
+
+# SECURITY: Cookies only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# SECURITY: Prevent clickjacking
+X_FRAME_OPTIONS = "DENY"
+
+# SECURITY: Prevent MIME type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# SECURITY: Enable browser XSS protection
+SECURE_BROWSER_XSS_FILTER = True
